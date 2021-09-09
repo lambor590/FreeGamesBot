@@ -1,5 +1,5 @@
-const logger = require('@greencoast/logger');
-const { DEBUG_ENABLED } = require('../common/context');
+const logger = require("@greencoast/logger");
+const { DEBUG_ENABLED } = require("../common/context");
 
 class Cache {
   constructor(name) {

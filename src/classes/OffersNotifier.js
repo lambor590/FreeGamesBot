@@ -6,7 +6,7 @@ const ProviderFactory = require("./providers/ProviderFactory");
 const OffersCache = require("./OffersCache");
 const discord = require("discord.js");
 const { MessageButton } = require("discord-buttons");
-const disbut = require('discord-buttons');
+const disbut = require("discord-buttons");
 const client = new discord.Client();
 disbut(client);
 
@@ -125,14 +125,12 @@ class OffersNotifier {
       .setURL(offer.url);
 
     channels.forEach((channel) => {
-      channel
-        .send(embed, botónLinkJuego)
-        .catch((error) => {
-          logger.error(
-            `Algo sucedió al intentar notificar ${channel.name} de ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
-          );
-          logger.error(error);
-        });
+      channel.send(embed, botónLinkJuego).catch((error) => {
+        logger.error(
+          `Algo sucedió al intentar notificar ${channel.name} de ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
+        );
+        logger.error(error);
+      });
     });
 
     return true;

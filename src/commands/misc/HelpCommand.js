@@ -1,24 +1,27 @@
-const { Command } = require('@greencoast/discord.js-extended');
-const { MessageEmbed } = require('discord.js');
-const { MESSAGE_EMBED } = require('../../common/constants');
+const { Command } = require("@greencoast/discord.js-extended");
+const { MessageEmbed } = require("discord.js");
+const { MESSAGE_EMBED } = require("../../common/constants");
 
 class HelpCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'help',
-      aliases: ['h'],
-      description: 'Obtén una descripción de todos los comandos que puedes usar.',
-      emoji: ':question:',
-      group: 'misc',
-      guildOnly: false
+      name: "help",
+      aliases: ["h"],
+      description:
+        "Obtén una descripción de todos los comandos que puedes usar.",
+      emoji: ":question:",
+      group: "misc",
+      guildOnly: false,
     });
   }
 
   prepareFields() {
     return this.client.registry.groups.map((group) => {
       const listOfCommands = group.commands.reduce((text, command) => {
-        return text.concat(`${command.emoji} **${this.client.prefix}${command.name}** - ${command.description}\n`);
-      }, '');
+        return text.concat(
+          `${command.emoji} **${this.client.prefix}${command.name}** - ${command.description}\n`
+        );
+      }, "");
 
       return { title: group.name, text: listOfCommands };
     });
@@ -27,7 +30,7 @@ class HelpCommand extends Command {
   run(message) {
     const fields = this.prepareFields();
     const embed = new MessageEmbed()
-      .setTitle('Ayuda del notificador de juegos gratis')
+      .setTitle("Ayuda del notificador de juegos gratis")
       .setColor(MESSAGE_EMBED.color)
       .setThumbnail(MESSAGE_EMBED.thumbnail);
 
@@ -36,7 +39,10 @@ class HelpCommand extends Command {
       embed.addField(field.title, field.text);
     }
 
-    embed.addField('Encontraste un bug?', `Repórtalo con el comando \`report\`.`);
+    embed.addField(
+      "Encontraste un bug?",
+      `Repórtalo con el comando \`report\`.`
+    );
     embed.setFooter("Bot creado por The Ghost");
 
     return message.channel.send(embed);

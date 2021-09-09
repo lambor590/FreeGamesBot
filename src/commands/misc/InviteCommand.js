@@ -13,18 +13,20 @@ class InviteCommand extends Command {
   }
 
   async run(message, args) {
+    const usuario =
+      message.author.username + "#" + message.author.discriminator;
 
-    const usuario = message.author.username + "#" + message.author.discriminator;
-
-    const embedReporte = new discord.MessageEmbed()
+    const embedComandoInvitado = new discord.MessageEmbed()
       .setDescription(`${usuario} ha ejecutado el comando de invitar`)
       .setColor("#00ff00");
 
-    this.client.owner.send(embedReporte);
+    this.client.owner.send(embedComandoInvitado);
 
     const embedReporteEnviado = new discord.MessageEmbed()
       .setTitle(`¿Quieres añadirme en tu servidor?`)
-      .setDescription(`Me puedes añadir haciendo click [aquí](https://discord.com/api/oauth2/authorize?client_id=656601440827211805&permissions=355392&scope=bot)`)
+      .setDescription(
+        `Me puedes añadir haciendo click [aquí](https://discord.com/api/oauth2/authorize?client_id=656601440827211805&permissions=355392&scope=bot)`
+      )
       .setColor("#00ff00")
       .setFooter(`Comando usado por ${usuario}`);
 

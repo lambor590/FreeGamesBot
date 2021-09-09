@@ -1,18 +1,21 @@
-const axios = require('axios');
-const logger = require('@greencoast/logger');
-const AbstractProvider = require('./AbstractProvider');
-const Cache = require('../Cache');
+const axios = require("axios");
+const logger = require("@greencoast/logger");
+const AbstractProvider = require("./AbstractProvider");
+const Cache = require("../Cache");
 
 class EpicGamesProvider extends AbstractProvider {
   constructor() {
     super();
 
-    this.name = 'Epic Games Store';
+    this.name = "Epic Games Store";
     this.cache = new Cache(this.name);
   }
 
   getData() {
-    return axios.get('https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions')
+    return axios
+      .get(
+        "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions"
+      )
       .then((res) => {
         return res.data;
       })
@@ -30,14 +33,25 @@ class EpicGamesProvider extends AbstractProvider {
       .then((data) => {
         const games = data.data.Catalog.searchStore.elements;
         const offers = games.reduce((offers, game) => {
-          if (game.promotions && game.promotions.promotionalOffers && game.promotions.promotionalOffers.length > 0) {
+          if (
+            game.promotions &&
+            game.promotions.promotionalOffers &&
+            game.promotions.promotionalOffers.length > 0
+          ) {
             let url = `https://epicgames.com/store/product/${game.productSlug}`;
 
-            if (!url.endsWith('/home')) {
-              url += '/home';
+            if (!url.endsWith("/home")) {
+              url += "/home";
             }
-            
-            offers.push(AbstractProvider.createOffer(this.name, game.title, url, game.productSlug));
+
+            offers.push(
+              AbstractProvider.createOffer(
+                this.name,
+                game.title,
+                url,
+                game.productSlug
+              )
+            );
           }
           return offers;
         }, []);

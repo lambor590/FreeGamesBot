@@ -2,7 +2,7 @@
 class AbstractProvider {
   constructor() {
     if (new.target === AbstractProvider) {
-      throw new TypeError('Cannot instantiate AbstractProvider!');
+      throw new TypeError("Cannot instantiate AbstractProvider!");
     }
   }
 
@@ -11,7 +11,7 @@ class AbstractProvider {
    * @returns {Promise<string|object>}
    */
   getData() {
-    throw new Error('Method not implemented!');
+    throw new Error("Method not implemented!");
   }
 
   /**
@@ -19,7 +19,7 @@ class AbstractProvider {
    * @returns {Promise<GameOffer[]>}
    */
   getOffers() {
-    throw new Error('Method not implemented!');
+    throw new Error("Method not implemented!");
   }
 
   /**
@@ -33,7 +33,7 @@ class AbstractProvider {
       game,
       url,
       id,
-      lastFetched: Date.now()
+      lastFetched: Date.now(),
     };
   }
 }
