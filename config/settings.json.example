@@ -1,0 +1,7 @@
+{
+  "token": "token",
+  "prefix": "$",
+  "owner_id": "381557925627559937",
+  "owner_reporting": true,
+  "presence_refresh_interval": 900000
+}
