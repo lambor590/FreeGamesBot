@@ -7,6 +7,7 @@ const LevelDataProvider =
   require("@greencoast/discord.js-extended/dist/providers/LevelDataProvider").default;
 const OffersNotifier = require("./classes/OffersNotifier");
 const { DEBUG_ENABLED } = require("./common/context");
+const discord = require("discord.js");
 
 const config = new ConfigProvider({
   configPath: path.join(__dirname, "../config/settings.json"),
@@ -39,7 +40,6 @@ const client = new ExtendedClient({
     templates: [
       `Juegos Gratis 👀`,
       `${prefix}help para comandos.`,
-      `Hecho por The Ghost#0001`,
       `Epic Games Store`,
       `Steam`,
     ],

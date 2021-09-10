@@ -111,12 +111,11 @@ class OffersNotifier {
 
     const embed = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está gratis en ${offer.provider}!`)
-      .setDescription(
-        `Puedes comprar el juego (o DLC) haciendo click [aquí](${offer.url}) o con en el botón de abajo`
-      )
       .setURL(offer.url)
       .setColor("BLACK")
-      .setFooter("Bot creado por The Ghost#0001");
+      .setFooter("Bot creado por The Ghost#3330")
+      .addField("Descripción del juego:", offer.description, false)
+      .setTimestamp();
 
     const botónLinkJuego = new MessageButton()
       .setLabel(`Comprar ${offer.game}`)

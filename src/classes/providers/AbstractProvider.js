@@ -27,12 +27,13 @@ class AbstractProvider {
    * @param {...Arguments} _ The GameOffer properties.
    * @returns {GameOffer}
    */
-  static createOffer(provider, game, url, id) {
+  static createOffer(provider, game, url, id, description) {
     return {
       provider,
       game,
       url,
       id,
+      description,
       lastFetched: Date.now(),
     };
   }

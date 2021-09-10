@@ -14,7 +14,7 @@ class EpicGamesProvider extends AbstractProvider {
   getData() {
     return axios
       .get(
-        "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions"
+        "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?locale=es-ES&country=ES&allowCountries=ES"
       )
       .then((res) => {
         return res.data;
@@ -32,6 +32,7 @@ class EpicGamesProvider extends AbstractProvider {
     return this.getData()
       .then((data) => {
         const games = data.data.Catalog.searchStore.elements;
+
         const offers = games.reduce((offers, game) => {
           if (
             game.promotions &&
@@ -49,7 +50,8 @@ class EpicGamesProvider extends AbstractProvider {
                 this.name,
                 game.title,
                 url,
-                game.productSlug
+                game.productSlug,
+                game.description
               )
             );
           }
