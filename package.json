@@ -1,7 +1,7 @@
 {
-  "name": "discord-free-games-notifier",
+  "name": "free-games-bot",
   "version": "2.0.0",
-  "description": "A Discord bot that will notify when free games on Steam or Epic Games come out.",
+  "description": "Bot de Discord para anunciar los juegos gratis que se encuentran en Epic Games Store y Steam.",
   "main": "./src/app.js",
   "scripts": {
     "test": "jest --watchAll --silent",
@@ -16,17 +16,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/moonstar-x/discord-free-games-notifier.git"
+    "url": "git+https://github.com/lambor590/FreeGamesBot.git"
   },
   "engines": {
     "node": ">=12.0.0"
   },
-  "author": "moonstar-x",
+  "author": "The Ghost",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/moonstar-x/discord-free-games-notifier/issues"
+    "url": "https://github.com/lambor590/FreeGamesBot/issues"
   },
-  "homepage": "https://github.com/moonstar-x/discord-free-games-notifier#readme",
+  "homepage": "https://github.com/lambor590/FreeGamesBot#readme",
   "dependencies": {
     "@greencoast/discord.js-extended": "^1.2.0",
     "@greencoast/logger": "^1.1.0",
