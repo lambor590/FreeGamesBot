@@ -126,7 +126,7 @@ class OffersNotifier {
     channels.forEach((channel) => {
       channel.send(embed, botónLinkJuego).catch((error) => {
         logger.error(
-          `Algo sucedió al intentar notificar ${channel.name} de ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
+          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
         );
         logger.error(error);
       });

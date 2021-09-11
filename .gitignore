@@ -1,3 +1,8 @@
 node_modules
 config/settings.json
 data
+.idea/.gitignore
+.idea/FreeGamesBot V2.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/Project_Default.xml

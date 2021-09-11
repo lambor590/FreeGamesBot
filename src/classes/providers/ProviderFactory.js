@@ -1,6 +1,5 @@
 const EpicGamesProvider = require("./EpicGamesProvider");
 const SteamProvider = require("./SteamProvider");
-
 const epicGamesProvider = new EpicGamesProvider();
 const steamProvider = new SteamProvider();
 
