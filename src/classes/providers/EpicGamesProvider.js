@@ -45,13 +45,22 @@ class EpicGamesProvider extends AbstractProvider {
               url += "/home";
             }
 
+            let image = game.keyImages[0].url;
+            for (const { type, url } of game.keyImages) {
+              if (type === "DieselStoreFrontWide") {
+                image = url;
+                break;
+              }
+            }
+
             offers.push(
               AbstractProvider.createOffer(
                 this.name,
                 game.title,
                 url,
                 game.productSlug,
-                game.description
+                game.description,
+                image
               )
             );
           }

@@ -109,10 +109,11 @@ class OffersNotifier {
       return false;
     }
 
-    const embed = new discord.MessageEmbed()
+    const embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está gratis en ${offer.provider}!`)
       .setURL(offer.url)
       .setColor("BLACK")
+      .setImage(offer.image)
       .setFooter("Bot creado por The Ghost#3330")
       .addField("Descripción del juego:", offer.description, false)
       .setTimestamp();
@@ -124,7 +125,7 @@ class OffersNotifier {
       .setURL(offer.url);
 
     channels.forEach((channel) => {
-      channel.send(embed, botónLinkJuego).catch((error) => {
+      channel.send(embedJuego, botónLinkJuego).catch((error) => {
         logger.error(
           `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
         );

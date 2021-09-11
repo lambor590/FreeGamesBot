@@ -1,27 +1,28 @@
 const offerMock = {
-  game: 'name',
-  provider: 'provider',
-  url: 'url',
-  id: 'id',
-  description: 'description',
+  game: "name",
+  provider: "provider",
+  url: "url",
+  id: "id",
+  description: "description",
+  image: "image",
 };
 
 const providerMock = {
-  getOffers: jest.fn(() => Promise.resolve([offerMock]))
+  getOffers: jest.fn(() => Promise.resolve([offerMock])),
 };
 
 const factoryMock = {
   getAll: jest.fn(() => [providerMock, providerMock]),
   getInstance: jest.fn((name) => {
-    if (name === 'valid') {
+    if (name === "valid") {
       return providerMock;
     }
-    throw new TypeError('Invalid provider');
-  })
+    throw new TypeError("Invalid provider");
+  }),
 };
 
 module.exports = {
   offerMock,
   providerMock,
-  factoryMock
+  factoryMock,
 };
