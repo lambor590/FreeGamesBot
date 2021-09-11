@@ -105,22 +105,20 @@ class OffersNotifier {
   async notifySingleOffer(offer, channels) {
     const alreadyNotified = await this.cache.isOfferCached(offer);
 
-    //if (alreadyNotified) {
-    //  return false;
-    //}
-
-    if (offer.provider === "Steam") {
-      embedJuego.setThumbnail("https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png");
+    if (alreadyNotified) {
+      return false;
     }
 
     const embedJuego = new discord.MessageEmbed()
-      .setTitle(`¡${offer.game} está gratis en ${offer.provider}!`)
+      .setTitle(`¡Juego gratis en ${offer.provider}!`)
       .setURL(offer.url)
       .setColor("BLACK")
       .setImage(offer.image)
-      .setThumbnail("https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png")
+      .setThumbnail(
+        "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
+      )
       .setFooter("Bot creado por The Ghost#3330")
-      .addField("Descripción del juego:", offer.description, false)
+      .addField(offer.game, offer.description, false)
       .setTimestamp();
 
     const botónLinkJuego = new MessageButton()
@@ -129,13 +127,21 @@ class OffersNotifier {
       .setStyle("url")
       .setURL(offer.url);
 
+    if (offer.provider === "Steam") {
+      embedJuego.setThumbnail(
+        "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
+      );
+    }
+
     channels.forEach((channel) => {
       channel.send(embedJuego, botónLinkJuego).catch((error) => {
         logger.error(
           `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
         );
         logger.error(error);
-        this.client.owner.send(`Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}`)
+        this.client.owner.send(
+          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}`
+        );
       });
     });
 
