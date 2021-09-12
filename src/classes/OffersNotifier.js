@@ -62,7 +62,7 @@ class OffersNotifier {
         const channel = guild.channels.cache.get(channelID);
 
         if (channel) {
-          return [...(await channels), channel];
+          return [...channels, channel];
         }
       }
 
@@ -97,7 +97,7 @@ class OffersNotifier {
       }
     }
 
-    this.cache.update(currentOffers);
+    await this.cache.update(currentOffers);
 
     return atLeastOneOfferNotified;
   }
