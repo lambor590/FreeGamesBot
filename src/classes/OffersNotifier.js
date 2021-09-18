@@ -109,16 +109,16 @@ class OffersNotifier {
       return false;
     }
 
-    const embedJuego = new discord.MessageEmbed()
-      .setTitle(`¡Juego gratis en ${offer.provider}!`)
+    var embedJuego = new discord.MessageEmbed()
+      .setTitle(`¡${offer.game} está GRATIS!`)
       .setURL(offer.url)
       .setColor("BLACK")
       .setImage(offer.image)
       .setThumbnail(
         "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
       )
-      .setFooter("Bot creado por The Ghost#3330")
-      .addField(offer.game, offer.description, false)
+      .setFooter("The Ghost#3330", "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp")
+      .setDescription(offer.description)
       .setTimestamp();
 
     const botónLinkJuego = new MessageButton()
@@ -128,9 +128,16 @@ class OffersNotifier {
       .setURL(offer.url);
 
     if (offer.provider === "Steam") {
-      embedJuego.setThumbnail(
-        "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
-      );
+      var embedJuego = new discord.MessageEmbed()
+        .setTitle(`¡${offer.game} está GRATIS!`)
+        .setURL(offer.url)
+        .setColor("BLACK")
+        .setThumbnail(
+          "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
+        )
+        .setFooter("The Ghost#3330", "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp")
+        .setDescription(`Puedes comprar el DLC o juego [haciendo click aquí](${offer.url})`)
+        .setTimestamp();
     }
 
     channels.forEach((channel) => {
