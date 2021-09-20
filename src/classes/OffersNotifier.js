@@ -62,7 +62,7 @@ class OffersNotifier {
         const channel = guild.channels.cache.get(channelID);
 
         if (channel) {
-          return [...await channels, channel];
+          return [...(await channels), channel];
         }
       }
 
@@ -105,9 +105,9 @@ class OffersNotifier {
   async notifySingleOffer(offer, channels) {
     const alreadyNotified = await this.cache.isOfferCached(offer);
 
-    if (alreadyNotified) {
-      return false;
-    }
+    //if (alreadyNotified) {
+    //  return false;
+    //}
 
     var embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
@@ -117,7 +117,10 @@ class OffersNotifier {
       .setThumbnail(
         "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
       )
-      .setFooter("The Ghost#3330", "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp")
+      .setFooter(
+        "The Ghost#3330",
+        "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+      )
       .setDescription(offer.description)
       .setTimestamp();
 
@@ -132,12 +135,20 @@ class OffersNotifier {
         .setTitle(`¡Oferta por tiempo limitado!`)
         .setURL(offer.url)
         .setColor("#2f3136")
-        .setImage(`https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`)
+        .setImage(
+          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`
+        )
         .setThumbnail(
           "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
         )
-        .setFooter("The Ghost#3330", "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp")
-        .addField(`${offer.game}`, `Puedes comprar el DLC o juego [haciendo click aquí](${offer.url})`)
+        .setFooter(
+          "The Ghost#3330",
+          "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+        )
+        .addField(
+          `${offer.game}`,
+          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`
+        )
         .setTimestamp();
     }
 
