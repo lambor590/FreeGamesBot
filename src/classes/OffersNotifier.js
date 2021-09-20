@@ -129,7 +129,7 @@ class OffersNotifier {
 
     if (offer.provider === "Steam") {
       var embedJuego = new discord.MessageEmbed()
-        .setTitle(`¡${offer.game} está GRATIS!`)
+        .setTitle(`¡Oferta por tiempo limitado!`)
         .setURL(offer.url)
         .setColor("#2f3136")
         .setImage(`https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`)
@@ -137,7 +137,7 @@ class OffersNotifier {
           "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
         )
         .setFooter("The Ghost#3330", "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp")
-        .setDescription(`Puedes comprar el DLC o juego [haciendo click aquí](${offer.url})`)
+        .addField(`${offer.game}`, `Puedes comprar el DLC o juego [haciendo click aquí](${offer.url})`)
         .setTimestamp();
     }
 
