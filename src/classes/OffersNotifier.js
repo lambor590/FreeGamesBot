@@ -62,7 +62,7 @@ class OffersNotifier {
         const channel = guild.channels.cache.get(channelID);
 
         if (channel) {
-          return [...channels, channel];
+          return [...await channels, channel];
         }
       }
 
@@ -112,7 +112,7 @@ class OffersNotifier {
     var embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
       .setURL(offer.url)
-      .setColor("BLACK")
+      .setColor("#2f3136")
       .setImage(offer.image)
       .setThumbnail(
         "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
@@ -131,7 +131,8 @@ class OffersNotifier {
       var embedJuego = new discord.MessageEmbed()
         .setTitle(`¡${offer.game} está GRATIS!`)
         .setURL(offer.url)
-        .setColor("BLACK")
+        .setColor("#2f3136")
+        .setImage(`https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`)
         .setThumbnail(
           "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
         )
