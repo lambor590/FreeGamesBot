@@ -105,9 +105,10 @@ class OffersNotifier {
   async notifySingleOffer(offer, channels) {
     const alreadyNotified = await this.cache.isOfferCached(offer);
 
-    //if (alreadyNotified) {
-    //  return false;
-    //}
+    /*
+    if (alreadyNotified) {
+      return false;
+    }*/
 
     var embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
@@ -149,6 +150,7 @@ class OffersNotifier {
           `${offer.game}`,
           `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`
         )
+        .addField(`Comprar abriendo Steam`, `steam://store/${offer.id}`)
         .setTimestamp();
     }
 
