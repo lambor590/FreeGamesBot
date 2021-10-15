@@ -18,7 +18,7 @@ class NotifyCommand extends Command {
         "No tienes permiso para ejecutar este comando."
       );
     } else {
-      await this.client.notifier.notify();
+      await this.client.notifier.notifyBypassCache();
       return this.client.owner.send("Notificación de juegos ejecutada.");
     }
   }

@@ -45,6 +45,10 @@ class EpicGamesProvider extends AbstractProvider {
               url += "/home";
             }
 
+            if (game.productSlug === null) {
+              url = `https://epicgames.com/store/product/${game.urlSlug}/home`;
+            }
+
             let image = game.keyImages[0].url;
             for (const { type, url } of game.keyImages) {
               if (type === "DieselStoreFrontWide") {
