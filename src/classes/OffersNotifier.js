@@ -121,7 +121,13 @@ class OffersNotifier {
       )
       .addField(
         `Comprar abriendo el Launcher de Epic`,
-        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`
+        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
+        true
+      )
+      .addField(
+        `Precio original del juego`,
+        `${offer.price}`, 
+        true
       )
       .setDescription(offer.description)
       .setTimestamp();

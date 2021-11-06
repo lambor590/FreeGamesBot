@@ -57,6 +57,8 @@ class EpicGamesProvider extends AbstractProvider {
               }
             }
 
+            let price = game.price.totalPrice.fmtPrice.originalPrice;
+
             offers.push(
               AbstractProvider.createOffer(
                 this.name,
@@ -65,7 +67,8 @@ class EpicGamesProvider extends AbstractProvider {
                 game.productSlug,
                 game.description,
                 image,
-                game.urlSlug
+                game.urlSlug,
+                price
               )
             );
           }
