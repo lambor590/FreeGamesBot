@@ -119,6 +119,10 @@ class OffersNotifier {
         "The Ghost#3330",
         "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
       )
+      .addField(
+        `Comprar abriendo el Launcher de Epic`,
+        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`
+      )
       .setDescription(offer.description)
       .setTimestamp();
 
@@ -210,6 +214,10 @@ class OffersNotifier {
       .setFooter(
         "The Ghost#3330",
         "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+      )
+      .addField(
+        `Comprar abriendo el Launcher de Epic`,
+        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`
       )
       .setDescription(offer.description)
       .setTimestamp();

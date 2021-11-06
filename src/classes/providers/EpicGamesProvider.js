@@ -64,7 +64,8 @@ class EpicGamesProvider extends AbstractProvider {
                 url,
                 game.productSlug,
                 game.description,
-                image
+                image,
+                game.urlSlug
               )
             );
           }
