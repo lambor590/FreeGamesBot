@@ -116,17 +116,17 @@ class OffersNotifier {
         "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
       )
       .setFooter(
-        "The Ghost#3330",
+        "The Ghost",
         "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
       )
       .addField(
-        `Comprar abriendo el Launcher de Epic`,
+        `Abrir Launcher de Epic`,
         `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
         true
       )
       .addField(
-        `Precio original del juego`,
-        `${offer.price}`, 
+        `Precio`,
+        `~~${offer.price}~~ → GRATIS`, 
         true
       )
       .setDescription(offer.description)
@@ -150,7 +150,7 @@ class OffersNotifier {
           "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
         )
         .setFooter(
-          "The Ghost#3330",
+          "The Ghost",
           "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
         )
         .addField(
@@ -218,12 +218,18 @@ class OffersNotifier {
         "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
       )
       .setFooter(
-        "The Ghost#3330",
+        "The Ghost",
         "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
       )
       .addField(
-        `Comprar abriendo el Launcher de Epic`,
-        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`
+        `Abrir Launcher de Epic`,
+        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
+        true
+      )
+      .addField(
+        `Precio`,
+        `~~${offer.price}~~ → GRATIS`, 
+        true
       )
       .setDescription(offer.description)
       .setTimestamp();
@@ -246,7 +252,7 @@ class OffersNotifier {
           "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
         )
         .setFooter(
-          "The Ghost#3330",
+          "The Ghost",
           "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
         )
         .addField(
