@@ -1,5 +1,5 @@
-const logger = require("@greencoast/logger");
-const { DEV_MODE } = require("../common/context");
+const logger = require('@greencoast/logger');
+const { DEV_MODE } = require('../common/context');
 
 class OffersCache {
   constructor(dataProvider) {
@@ -7,21 +7,21 @@ class OffersCache {
   }
 
   async isOfferCached(offer) {
-    const cachedOffers = await this.dataProvider.getGlobal("notified", []);
+    const cachedOffers = await this.dataProvider.getGlobal('notified', []);
 
     return cachedOffers.some((o) => o.id === offer.id);
   }
 
   async update(currentOffers) {
-    const cachedOffers = await this.dataProvider.getGlobal("notified", []);
+    const cachedOffers = await this.dataProvider.getGlobal('notified', []);
 
     const merged = this.mergeOffers(currentOffers, cachedOffers);
 
     if (DEV_MODE) {
-      logger.debug("Ofertas en caché:", merged);
+      logger.debug('Ofertas en caché:', merged);
     }
 
-    await this.dataProvider.setGlobal("notified", merged);
+    await this.dataProvider.setGlobal('notified', merged);
   }
 
   mergeOffers(currentOffers, cachedOffers) {

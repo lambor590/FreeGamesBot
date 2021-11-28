@@ -1,24 +1,22 @@
-const axios = require("axios");
-const logger = require("@greencoast/logger");
-const AbstractProvider = require("./AbstractProvider");
-const Cache = require("../Cache");
+const axios = require('axios');
+const logger = require('@greencoast/logger');
+const AbstractProvider = require('./AbstractProvider');
+const Cache = require('../Cache');
 
 class EpicGamesProvider extends AbstractProvider {
   constructor() {
     super();
 
-    this.name = "Epic Games Store";
+    this.name = 'Epic Games Store';
     this.cache = new Cache(this.name);
   }
 
   getData() {
     return axios
       .get(
-        "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?locale=es-ES&country=ES&allowCountries=ES"
+        'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?locale=es-ES&country=ES&allowCountries=ES',
       )
-      .then((res) => {
-        return res.data;
-      })
+      .then((res) => res.data)
       .catch((error) => {
         throw error;
       });
@@ -35,14 +33,14 @@ class EpicGamesProvider extends AbstractProvider {
 
         const offers = games.reduce((offers, game) => {
           if (
-            game.promotions &&
-            game.promotions.promotionalOffers &&
-            game.promotions.promotionalOffers.length > 0
+            game.promotions
+            && game.promotions.promotionalOffers
+            && game.promotions.promotionalOffers.length > 0
           ) {
             let url = `https://epicgames.com/store/product/${game.productSlug}`;
 
-            if (!url.endsWith("/home")) {
-              url += "/home";
+            if (!url.endsWith('/home')) {
+              url += '/home';
             }
 
             if (game.productSlug === null) {
@@ -51,13 +49,16 @@ class EpicGamesProvider extends AbstractProvider {
 
             let image = game.keyImages[0].url;
             for (const { type, url } of game.keyImages) {
-              if (type === "DieselStoreFrontWide") {
+              if (type === 'DieselStoreFrontWide') {
                 image = url;
                 break;
               }
             }
 
             let price = game.price.totalPrice.fmtPrice.originalPrice;
+            if (price === '0') {
+              price = 'PrecioDesconocido';
+            }
 
             offers.push(
               AbstractProvider.createOffer(
@@ -68,8 +69,8 @@ class EpicGamesProvider extends AbstractProvider {
                 game.description,
                 image,
                 game.urlSlug,
-                price
-              )
+                price,
+              ),
             );
           }
           return offers;

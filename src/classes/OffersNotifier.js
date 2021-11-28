@@ -1,12 +1,13 @@
-const logger = require("@greencoast/logger");
-const { CronJob } = require("cron");
-const { CRON, GUILD_KEYS } = require("../common/constants");
-const { DEV_MODE } = require("../common/context");
-const ProviderFactory = require("./providers/ProviderFactory");
-const OffersCache = require("./OffersCache");
-const discord = require("discord.js");
-const { MessageButton } = require("discord-buttons");
-const disbut = require("discord-buttons");
+const logger = require('@greencoast/logger');
+const { CronJob } = require('cron');
+const discord = require('discord.js');
+const { MessageButton } = require('discord-buttons');
+const disbut = require('discord-buttons');
+const { CRON, GUILD_KEYS } = require('../common/constants');
+const { DEV_MODE } = require('../common/context');
+const ProviderFactory = require('./providers/ProviderFactory');
+const OffersCache = require('./OffersCache');
+
 const client = new discord.Client();
 disbut(client);
 
@@ -22,31 +23,31 @@ class OffersNotifier {
 
     this.notifyJob = new CronJob(
       DEV_MODE ? CRON.EVERY_MINUTE : CRON.EVERY_30_MINS,
-      async function () {
-        logger.info("(CRON): Notificando servidores...");
+      async function log() {
+        logger.info('(CRON): Notificando servidores...');
         return this.onComplete(await self.notify());
       },
-      function (notified) {
+      function log2(notified) {
         logger.info(
           notified
-            ? "(CRON): Notificación completada."
-            : "(CRON): Notificación omitida, o no hubo ofertas para notificar o las ofertas ya se notificaron."
+            ? '(CRON): Notificación completada.'
+            : '(CRON): Notificación omitida, o no hubo ofertas para notificar o las ofertas ya se notificaron.',
         );
         logger.info(
           `(CRON): Próxima ejecución: ${this.nextDate().format(
-            CRON.MOMENT_DATE_FORMAT
-          )}`
+            CRON.MOMENT_DATE_FORMAT,
+          )}`,
         );
       },
-      true
+      true,
     );
 
     this.notifyJob.start();
-    logger.info("(CRON): Notification job initialized.");
+    logger.info('(CRON): Proceso de notificación iniciado.');
     logger.info(
       `(CRON): Próxima ejecución: ${this.notifyJob
         .nextDate()
-        .format(CRON.MOMENT_DATE_FORMAT)}`
+        .format(CRON.MOMENT_DATE_FORMAT)}`,
     );
   }
 
@@ -55,7 +56,7 @@ class OffersNotifier {
       const channelID = await this.client.dataProvider.get(
         guild,
         GUILD_KEYS.channel,
-        null
+        null,
       );
 
       if (channelID) {
@@ -80,15 +81,13 @@ class OffersNotifier {
     }, []);
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //                                                   NOTIFICACIÓN SIN CACHÉ                                                  //
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //* NOTIFICACIÓN SIN CACHÉ //
 
   async notifyBypassCache() {
     const providers = ProviderFactory.getAll();
     const channels = await this.getChannelsForEnabledGuilds();
     const currentOffers = this.filterValidOffers(
-      await Promise.all(providers.map((provider) => provider.getOffers()))
+      await Promise.all(providers.map((provider) => provider.getOffers())),
     );
 
     let atLeastOneOfferNotified = false;
@@ -101,74 +100,75 @@ class OffersNotifier {
       }
     }
 
-    this.cache.update(currentOffers);
+    await this.cache.update(currentOffers);
 
     return atLeastOneOfferNotified;
   }
 
   async notifySingleOfferBypassCache(offer, channels) {
-    var embedJuego = new discord.MessageEmbed()
+    let embedJuego;
+
+    embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
       .setURL(offer.url)
-      .setColor("#2f3136")
+      .setColor('#2f3136')
       .setImage(offer.image)
       .setThumbnail(
-        "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
+        'https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png',
       )
       .setFooter(
-        "The Ghost",
-        "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+        'The Ghost',
+        'https://cdn.discordapp.com/avatars/381557925627559937/db74b5c7ab2c6d063b1f03af07811d50.webp',
       )
       .addField(
-        `Abrir Launcher de Epic`,
+        'Abrir Launcher de Epic',
         `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
-        true
-      )
-      .addField(
-        `Precio`,
-        `~~${offer.price}~~ → GRATIS`, 
-        true
+        true,
       )
       .setDescription(offer.description)
       .setTimestamp();
 
+    if (offer.price !== 'PrecioDesconocido') {
+      embedJuego.addField('Precio', `~~${offer.price}~~ → GRATIS`, true);
+    }
+
     const botónLinkJuego = new MessageButton()
       .setLabel(`Comprar ${offer.game}`)
-      .setEmoji("850093946310754424")
-      .setStyle("url")
+      .setEmoji('850093946310754424')
+      .setStyle('url')
       .setURL(offer.url);
 
-    if (offer.provider === "Steam") {
-      var embedJuego = new discord.MessageEmbed()
-        .setTitle(`¡Oferta por tiempo limitado!`)
+    if (offer.provider === 'Steam') {
+      embedJuego = new discord.MessageEmbed()
+        .setTitle('¡Oferta por tiempo limitado!')
         .setURL(offer.url)
-        .setColor("#2f3136")
+        .setColor('#2f3136')
         .setImage(
-          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`
+          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`,
         )
         .setThumbnail(
-          "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
+          'https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png',
         )
         .setFooter(
-          "The Ghost",
-          "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+          'The Ghost',
+          'https://cdn.discordapp.com/avatars/381557925627559937/db74b5c7ab2c6d063b1f03af07811d50.webp',
         )
         .addField(
           `${offer.game}`,
-          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`
+          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`,
         )
-        .addField(`Comprar abriendo Steam`, `steam://store/${offer.id}`)
+        .addField('Comprar abriendo Steam', `steam://store/${offer.id}`)
         .setTimestamp();
     }
 
     channels.forEach((channel) => {
       channel.send(embedJuego, botónLinkJuego).catch((error) => {
         logger.error(
-          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
+          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`,
         );
         logger.error(error);
         this.client.owner.send(
-          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}`
+          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}`,
         );
       });
     });
@@ -176,15 +176,13 @@ class OffersNotifier {
     return true;
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //                                                   NOTIFICACIÓN NORMAL                                                     //
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //* NOTIFICACIÓN NORMAL //
 
   async notify() {
     const providers = ProviderFactory.getAll();
     const channels = await this.getChannelsForEnabledGuilds();
     const currentOffers = this.filterValidOffers(
-      await Promise.all(providers.map((provider) => provider.getOffers()))
+      await Promise.all(providers.map((provider) => provider.getOffers())),
     );
 
     let atLeastOneOfferNotified = false;
@@ -209,68 +207,69 @@ class OffersNotifier {
       return false;
     }
 
-    var embedJuego = new discord.MessageEmbed()
+    let embedJuego;
+
+    embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
       .setURL(offer.url)
-      .setColor("#2f3136")
+      .setColor('#2f3136')
       .setImage(offer.image)
       .setThumbnail(
-        "https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png"
+        'https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png',
       )
       .setFooter(
-        "The Ghost",
-        "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+        'The Ghost',
+        'https://cdn.discordapp.com/avatars/381557925627559937/db74b5c7ab2c6d063b1f03af07811d50.webp',
       )
       .addField(
-        `Abrir Launcher de Epic`,
+        'Abrir Launcher de Epic',
         `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
-        true
-      )
-      .addField(
-        `Precio`,
-        `~~${offer.price}~~ → GRATIS`, 
-        true
+        true,
       )
       .setDescription(offer.description)
       .setTimestamp();
 
+    if (offer.price !== 'PrecioDesconocido') {
+      embedJuego.addField('Precio', `~~${offer.price}~~ → GRATIS`, true);
+    }
+
     const botónLinkJuego = new MessageButton()
       .setLabel(`Comprar ${offer.game}`)
-      .setEmoji("850093946310754424")
-      .setStyle("url")
+      .setEmoji('850093946310754424')
+      .setStyle('url')
       .setURL(offer.url);
 
-    if (offer.provider === "Steam") {
-      var embedJuego = new discord.MessageEmbed()
-        .setTitle(`¡Oferta por tiempo limitado!`)
+    if (offer.provider === 'Steam') {
+      embedJuego = new discord.MessageEmbed()
+        .setTitle('¡Oferta por tiempo limitado!')
         .setURL(offer.url)
-        .setColor("#2f3136")
+        .setColor('#2f3136')
         .setImage(
-          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`
+          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`,
         )
         .setThumbnail(
-          "https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png"
+          'https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png',
         )
         .setFooter(
-          "The Ghost",
-          "https://cdn.discordapp.com/avatars/381557925627559937/e34a77806ce9344a2869c676edaeac3e.webp"
+          'The Ghost',
+          'https://cdn.discordapp.com/avatars/381557925627559937/db74b5c7ab2c6d063b1f03af07811d50.webp',
         )
         .addField(
           `${offer.game}`,
-          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`
+          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`,
         )
-        .addField(`Comprar abriendo Steam`, `steam://store/${offer.id}`)
+        .addField('Comprar abriendo Steam', `steam://store/${offer.id}`)
         .setTimestamp();
     }
 
     channels.forEach((channel) => {
       channel.send(embedJuego, botónLinkJuego).catch((error) => {
         logger.error(
-          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`
+          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}, tal vez no tengo suficientes permisos para enviar el mensaje?`,
         );
         logger.error(error);
         this.client.owner.send(
-          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}`
+          `Algo sucedió al intentar notificar ${channel.name} en ${channel.guild.name}`,
         );
       });
     });

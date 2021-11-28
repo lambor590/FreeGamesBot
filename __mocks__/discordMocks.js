@@ -6,32 +6,32 @@ const channelMock = {
   viewable: true,
   send: jest.fn(() => Promise.resolve()),
   guild: {
-    name: 'guild'
-  }
+    name: 'guild',
+  },
 };
 
 const guildMock = {
   name: 'guild',
   id: '123',
   channels: {
-    cache: new Collection([[channelMock.id, channelMock], [channelMock.id, channelMock]])
-  }
+    cache: new Collection([[channelMock.id, channelMock], [channelMock.id, channelMock]]),
+  },
 };
 
 const commandMock = {
   name: 'command',
-  description: 'description'
+  description: 'description',
 };
 
 const commandGroupMock = {
   name: 'group',
-  commands: [commandMock, commandMock]
+  commands: [commandMock, commandMock],
 };
 
 const clientMock = {
   handleCommandError: jest.fn(),
   registry: {
-    groups: [commandGroupMock, commandGroupMock]
+    groups: [commandGroupMock, commandGroupMock],
   },
   setProvider: jest.fn(() => Promise.resolve()),
   updatePresence: jest.fn(),
@@ -41,19 +41,19 @@ const clientMock = {
     clear: jest.fn(),
     getGlobal: jest.fn(),
     setGlobal: jest.fn(),
-    clearGlobal: jest.fn()
+    clearGlobal: jest.fn(),
   },
   guilds: {
-    cache: new Collection([[guildMock.id, guildMock], [guildMock.id, guildMock]])
-  }
+    cache: new Collection([[guildMock.id, guildMock], [guildMock.id, guildMock]]),
+  },
 };
 
 const userMock = {
-  username: 'user'
+  username: 'user',
 };
 
 const memberMock = {
-  displayName: 'nickname'
+  displayName: 'nickname',
 };
 
 const messageMock = {
@@ -62,13 +62,13 @@ const messageMock = {
   author: userMock,
   member: memberMock,
   channel: {
-    send: jest.fn()
+    send: jest.fn(),
   },
   mentions: {
     channels: {
-      first: jest.fn(() => channelMock)
-    }
-  }
+      first: jest.fn(() => channelMock),
+    },
+  },
 };
 
 module.exports = {
@@ -79,5 +79,5 @@ module.exports = {
   memberMock,
   commandGroupMock,
   commandMock,
-  channelMock
+  channelMock,
 };

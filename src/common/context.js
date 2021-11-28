@@ -4,5 +4,5 @@ const DEV_MODE = process.env.NODE_ENV === 'development';
 
 module.exports = {
   DEBUG_ENABLED,
-  DEV_MODE
+  DEV_MODE,
 };

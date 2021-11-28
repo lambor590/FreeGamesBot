@@ -1,5 +1,6 @@
-const EpicGamesProvider = require("./EpicGamesProvider");
-const SteamProvider = require("./SteamProvider");
+const EpicGamesProvider = require('./EpicGamesProvider');
+const SteamProvider = require('./SteamProvider');
+
 const epicGamesProvider = new EpicGamesProvider();
 const steamProvider = new SteamProvider();
 
@@ -23,8 +24,8 @@ class ProviderFactory {
 }
 
 ProviderFactory.providerNames = {
-  steam: "steam",
-  epic: "epic",
+  steam: 'steam',
+  epic: 'epic',
 };
 
 module.exports = ProviderFactory;

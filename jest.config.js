@@ -1,4 +1,4 @@
 module.exports = {
   testEnvironment: 'node',
-  setupFiles: ['./test/setupEnv.js']
+  setupFiles: ['./test/setupEnv.js'],
 };

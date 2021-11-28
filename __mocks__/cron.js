@@ -1,4 +1,4 @@
-const CronJob = jest.fn(function(_, action, onComplete) {
+const CronJob = jest.fn(function job(_, action, onComplete) {
   this.onComplete = onComplete;
   this.nextDate = jest.fn(() => ({ format: jest.fn(() => 'time') }));
   this.start = jest.fn(() => action.bind(this)());
@@ -7,5 +7,5 @@ const CronJob = jest.fn(function(_, action, onComplete) {
 });
 
 module.exports = {
-  CronJob
+  CronJob,
 };
