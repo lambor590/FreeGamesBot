@@ -81,6 +81,23 @@ class OffersNotifier {
     }, []);
   }
 
+  async customGlobalMessage(title, description, image, footer) {
+    const channels = await this.getChannelsForEnabledGuilds();
+    const embed = new discord.MessageEmbed()
+      .setColor('#2f3136')
+      .setTitle(title)
+      .setDescription(description)
+      .setImage(image)
+      .setFooter(footer)
+      .setTimestamp();
+
+    for (const channel of channels) {
+      channel.send(embed);
+    }
+
+    return true;
+  }
+
   //* NOTIFICACIÓN SIN CACHÉ //
 
   async notifyBypassCache() {
