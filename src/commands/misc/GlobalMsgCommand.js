@@ -47,7 +47,7 @@ class GlobalMsgCommand extends Command {
     if (footer) {
       footer = footer.replace('"', '');
     } else {
-      footer = null;
+      footer = '';
     }
 
     await this.client.notifier.customGlobalMessage(title, description, image, footer);
