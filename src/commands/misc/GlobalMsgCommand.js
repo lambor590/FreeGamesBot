@@ -24,28 +24,31 @@ class GlobalMsgCommand extends Command {
       return message.channel.send('El uso es: $gm <título> <desc> <imagen>');
     }
 
-    let [title, description, image, footer] = args.join(' ').split('" "');
+    let [title, description, image, footer] = args.join(' ').split('""');
+
+    const find = '"';
+    const re = new RegExp(find, 'g');
 
     if (title) {
-      title = title.replace('"', '');
+      title = title.replace(re, '');
     } else {
-      title = null;
+      title = '';
     }
 
     if (description) {
-      description = description.replace('"', '');
+      description = description.replace(re, '');
     } else {
-      description = null;
+      description = '';
     }
 
     if (image) {
-      image = image.replace('"', '');
+      image = image.replace(re, '');
     } else {
-      image = null;
+      image = '';
     }
 
     if (footer) {
-      footer = footer.replace('"', '');
+      footer = footer.replace(re, '');
     } else {
       footer = '';
     }
