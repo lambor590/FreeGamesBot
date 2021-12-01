@@ -21,10 +21,10 @@ class GlobalMsgCommand extends Command {
     }
 
     if (!args[0]) {
-      return message.channel.send('El uso es: $gm <título> <desc> <imagen>');
+      return message.channel.send('El uso es: $gm <título> <desc> <imagen> <footer>');
     }
 
-    let [title, description, image, footer] = args.join(' ').split('""');
+    let [title, description, image, footer] = args.join(' ').split('" "');
 
     const find = '"';
     const re = new RegExp(find, 'g');

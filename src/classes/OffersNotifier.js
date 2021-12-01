@@ -98,6 +98,32 @@ class OffersNotifier {
     return true;
   }
 
+  async channelsBulkDelete() {
+    const channels = await this.getChannelsForEnabledGuilds();
+
+    const messages = await Promise.all(
+      channels.map((channel) => channel.messages.fetch({ limit: 100 })),
+    );
+
+    const messagesToDelete = messages.reduce((all, messages) => {
+      all.push(...messages.filter((message) => message.author.bot));
+      return all;
+    }, []);
+
+    const messagesToDeleteIds = messagesToDelete.map((message) => message[0]);
+
+    for (const channel of channels) {
+      if (messagesToDeleteIds.length > 0) {
+        await channel.bulkDelete(messagesToDeleteIds, { filterOld: true });
+      } else {
+        await this.client.owner.send('No hay mensajes que eliminar.');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   //* NOTIFICACIÓN SIN CACHÉ //
 
   async notifyBypassCache() {
