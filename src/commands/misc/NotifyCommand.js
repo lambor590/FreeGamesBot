@@ -12,13 +12,19 @@ class NotifyCommand extends Command {
     });
   }
 
-  async run(message) {
+  async run(message, args) {
     if (message.author.id != this.client.owner) {
       return message.channel.send(
         'No tienes permiso para ejecutar este comando.',
       );
     }
-    await this.client.notifier.notifyBypassCache();
+
+    if (args[0] == '-bc') {
+      await this.client.notifier.notifyBypassCache();
+    } else {
+      await this.client.notifier.notify();
+    }
+
     return this.client.owner.send('Notificación de juegos ejecutada.');
   }
 }
