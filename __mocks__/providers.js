@@ -5,6 +5,7 @@ const offerMock = {
   id: 'id',
   description: 'description',
   image: 'image',
+  urlSlug: 'urlSlug',
 };
 
 const providerMock = {

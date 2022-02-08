@@ -36,15 +36,12 @@ class EpicGamesProvider extends AbstractProvider {
             game.promotions
             && game.promotions.promotionalOffers
             && game.promotions.promotionalOffers.length > 0
+            && game.price.totalPrice.discountPrice === 0
           ) {
-            let url = `https://epicgames.com/store/product/${game.productSlug}`;
+            let url = `https://epicgames.com/store/product/${game.urlSlug}/home`;
 
             if (!url.endsWith('/home')) {
               url += '/home';
-            }
-
-            if (game.productSlug === null) {
-              url = `https://epicgames.com/store/product/${game.urlSlug}/home`;
             }
 
             let image = game.keyImages[0].url;

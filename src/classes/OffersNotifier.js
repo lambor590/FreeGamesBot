@@ -165,7 +165,7 @@ class OffersNotifier {
       )
       .addField(
         'Abrir Launcher de Epic',
-        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
+        `<com.epicgames.launcher://store/es-ES/p/${offer.productSlug}>`,
         true,
       )
       .setDescription(offer.description)
