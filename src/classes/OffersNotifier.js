@@ -252,13 +252,9 @@ class OffersNotifier {
       .setThumbnail(
         'https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png',
       )
-      .setFooter(
-        'The Ghost',
-        'https://cdn.discordapp.com/avatars/381557925627559937/db74b5c7ab2c6d063b1f03af07811d50.webp',
-      )
       .addField(
         'Abrir Launcher de Epic',
-        `<com.epicgames.launcher://store/es-ES/p/${offer.urlSlug}>`,
+        `<com.epicgames.launcher://store/es-ES/p/${offer.productSlug}>`,
         true,
       )
       .setDescription(offer.description)
@@ -284,10 +280,6 @@ class OffersNotifier {
         )
         .setThumbnail(
           'https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png',
-        )
-        .setFooter(
-          'The Ghost',
-          'https://cdn.discordapp.com/avatars/381557925627559937/db74b5c7ab2c6d063b1f03af07811d50.webp',
         )
         .addField(
           `${offer.game}`,
