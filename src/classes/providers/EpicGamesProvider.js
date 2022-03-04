@@ -44,7 +44,7 @@ class EpicGamesProvider extends AbstractProvider {
               url += '/home';
             }
 
-            let image = game.keyImages[0].url;
+            let image = game.keyImages[1].url;
             for (const { type, url } of game.keyImages) {
               if (type === 'DieselStoreFrontWide') {
                 image = url;
@@ -54,7 +54,7 @@ class EpicGamesProvider extends AbstractProvider {
 
             let price = game.price.totalPrice.fmtPrice.originalPrice;
             if (price === '0') {
-              price = 'PrecioDesconocido';
+              price = 'Desconocido';
             }
 
             offers.push(
