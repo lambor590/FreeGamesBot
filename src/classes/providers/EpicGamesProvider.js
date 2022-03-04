@@ -62,11 +62,12 @@ class EpicGamesProvider extends AbstractProvider {
                 this.name,
                 game.title,
                 url,
-                game.productSlug,
+                game.id,
                 game.description,
                 image,
                 game.urlSlug,
                 price,
+                game.productSlug,
               ),
             );
           }

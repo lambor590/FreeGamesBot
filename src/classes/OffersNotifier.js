@@ -150,6 +150,13 @@ class OffersNotifier {
 
   async notifySingleOfferBypassCache(offer, channels) {
     let embedJuego;
+    let slugfinal;
+
+    if (offer.productSlug === null) {
+      slugfinal = offer.urlSlug;
+    } else {
+      slugfinal = offer.productSlug;
+    }
 
     embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
@@ -161,7 +168,7 @@ class OffersNotifier {
       )
       .addField(
         'Abrir Launcher de Epic',
-        `<com.epicgames.launcher://store/es-ES/p/${offer.productSlug}>`,
+        `<com.epicgames.launcher://store/es-ES/p/${slugfinal}>`,
         true,
       )
       .setDescription(offer.description)
@@ -243,6 +250,13 @@ class OffersNotifier {
     }
 
     let embedJuego;
+    let slugfinal;
+
+    if (offer.productSlug === null) {
+      slugfinal = offer.urlSlug;
+    } else {
+      slugfinal = offer.productSlug;
+    }
 
     embedJuego = new discord.MessageEmbed()
       .setTitle(`¡${offer.game} está GRATIS!`)
@@ -254,7 +268,7 @@ class OffersNotifier {
       )
       .addField(
         'Abrir Launcher de Epic',
-        `<com.epicgames.launcher://store/es-ES/p/${offer.productSlug}>`,
+        `<com.epicgames.launcher://store/es-ES/p/${slugfinal}>`,
         true,
       )
       .setDescription(offer.description)
