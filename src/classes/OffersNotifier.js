@@ -167,15 +167,20 @@ class OffersNotifier {
         'https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png',
       )
       .addField(
-        'Abrir Launcher de Epic',
+        '🖥️ Abrir Launcher de Epic',
         `<com.epicgames.launcher://store/es-ES/p/${slugfinal}>`,
+        false,
+      )
+      .addField(
+        '⌛ Tiempo límite',
+        `<t:${offer.time}:R>`,
         true,
       )
       .setDescription(offer.description)
       .setTimestamp();
 
     if (offer.price !== 'PrecioDesconocido') {
-      embedJuego.addField('Precio', `~~${offer.price}~~ → GRATIS`, true);
+      embedJuego.addField('💰 Precio', `~~${offer.price}~~ → GRATIS`, true);
     }
 
     const botónLinkJuego = new MessageButton()
@@ -267,15 +272,20 @@ class OffersNotifier {
         'https://cdn.discordapp.com/attachments/672907465670787083/820258283293638676/epic.png',
       )
       .addField(
-        'Abrir Launcher de Epic',
+        '🖥️ Abrir Launcher de Epic',
         `<com.epicgames.launcher://store/es-ES/p/${slugfinal}>`,
+        false,
+      )
+      .addField(
+        ' ⌛ Tiempo límite',
+        `<t:${offer.time}:R>`,
         true,
       )
       .setDescription(offer.description)
       .setTimestamp();
 
-    if (offer.price !== 'PrecioDesconocido') {
-      embedJuego.addField('Precio', `~~${offer.price}~~ → GRATIS`, true);
+    if (offer.price !== 'Desconocido') {
+      embedJuego.addField('💰 Precio', `~~${offer.price}~~ → GRATIS`, true);
     }
 
     const botónLinkJuego = new MessageButton()

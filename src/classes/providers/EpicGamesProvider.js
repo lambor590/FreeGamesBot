@@ -44,6 +44,13 @@ class EpicGamesProvider extends AbstractProvider {
               url += '/home';
             }
 
+            const rawEndDate = game.promotions.promotionalOffers[0].promotionalOffers[0].endDate;
+
+            const endDate = rawEndDate.split('T')[0];
+
+            const finalDate = new Date(`${endDate} 17:00:00`);
+            const time = finalDate.getTime() / 1000.0;
+
             let image = game.keyImages[1].url;
             for (const { type, url } of game.keyImages) {
               if (type === 'DieselStoreFrontWide') {
@@ -68,6 +75,7 @@ class EpicGamesProvider extends AbstractProvider {
                 game.urlSlug,
                 price,
                 game.productSlug,
+                time,
               ),
             );
           }

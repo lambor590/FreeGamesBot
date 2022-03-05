@@ -7,6 +7,7 @@ const offerMock = {
   image: 'image',
   urlSlug: 'urlSlug',
   productSlug: 'productSlug',
+  time: 'time',
 };
 
 const providerMock = {
