@@ -156,6 +156,9 @@ class OffersNotifier {
       slugfinal = offer.urlSlug;
     } else {
       slugfinal = offer.productSlug;
+      if (slugfinal.endsWith('/home')) {
+        slugfinal = slugfinal.slice(0, -5);
+      }
     }
 
     embedJuego = new discord.MessageEmbed()
@@ -168,7 +171,7 @@ class OffersNotifier {
       )
       .addField(
         '🖥️ Abrir Launcher de Epic',
-        `<com.epicgames.launcher://store/es-ES/p/${slugfinal}>`,
+        `<com.epicgames.launcher://store/p/${slugfinal}>`,
         false,
       )
       .addField(
@@ -180,7 +183,7 @@ class OffersNotifier {
       .setTimestamp();
 
     if (offer.price !== 'PrecioDesconocido') {
-      embedJuego.addField('💰 Precio', `~~${offer.price}~~ → GRATIS`, true);
+      embedJuego.addField('💰 Precio', `~~${offer.price}~~ ➯ GRATIS`, true);
     }
 
     const botónLinkJuego = new MessageButton()
@@ -261,6 +264,9 @@ class OffersNotifier {
       slugfinal = offer.urlSlug;
     } else {
       slugfinal = offer.productSlug;
+      if (slugfinal.endsWith('/home')) {
+        slugfinal = slugfinal.slice(0, -5);
+      }
     }
 
     embedJuego = new discord.MessageEmbed()
@@ -273,7 +279,7 @@ class OffersNotifier {
       )
       .addField(
         '🖥️ Abrir Launcher de Epic',
-        `<com.epicgames.launcher://store/es-ES/p/${slugfinal}>`,
+        `<com.epicgames.launcher://store/p/${slugfinal}>`,
         false,
       )
       .addField(
@@ -285,7 +291,7 @@ class OffersNotifier {
       .setTimestamp();
 
     if (offer.price !== 'Desconocido') {
-      embedJuego.addField('💰 Precio', `~~${offer.price}~~ → GRATIS`, true);
+      embedJuego.addField('💰 Precio', `~~${offer.price}~~ ➯ GRATIS`, true);
     }
 
     const botónLinkJuego = new MessageButton()

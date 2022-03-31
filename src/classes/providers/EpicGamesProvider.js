@@ -1,5 +1,6 @@
 const axios = require('axios');
 const logger = require('@greencoast/logger');
+const fetch = require('node-fetch');
 const AbstractProvider = require('./AbstractProvider');
 const Cache = require('../Cache');
 
@@ -27,6 +28,15 @@ class EpicGamesProvider extends AbstractProvider {
       return Promise.resolve(this.cache.get());
     }
 
+    function isUrlValid(url) {
+      return fetch(url).then((res) => {
+        if (res.status === 200) {
+          return true;
+        }
+        return false;
+      });
+    }
+
     return this.getData()
       .then((data) => {
         const games = data.data.Catalog.searchStore.elements;
@@ -38,10 +48,10 @@ class EpicGamesProvider extends AbstractProvider {
             && game.promotions.promotionalOffers.length > 0
             && game.price.totalPrice.discountPrice === 0
           ) {
-            let url = `https://epicgames.com/store/product/${game.urlSlug}/home`;
+            let url = `https://epicgames.com/store/p/${game.productSlug}`;
 
-            if (!url.endsWith('/home')) {
-              url += '/home';
+            if (isUrlValid(url) == false) {
+              url = `https://epicgames.com/store/p/${game.urlSlug}`;
             }
 
             const rawEndDate = game.promotions.promotionalOffers[0].promotionalOffers[0].endDate;
