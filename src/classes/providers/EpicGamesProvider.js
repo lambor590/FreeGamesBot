@@ -54,6 +54,10 @@ class EpicGamesProvider extends AbstractProvider {
               url = `https://epicgames.com/store/p/${game.urlSlug}`;
             }
 
+            if (url.endsWith('/home')) {
+              url = url.slice(0, -5);
+            }
+
             const rawEndDate = game.promotions.promotionalOffers[0].promotionalOffers[0].endDate;
 
             const endDate = rawEndDate.split('T')[0];
