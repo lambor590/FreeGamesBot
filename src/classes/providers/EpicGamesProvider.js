@@ -48,7 +48,11 @@ class EpicGamesProvider extends AbstractProvider {
             && game.promotions.promotionalOffers.length > 0
             && game.price.totalPrice.discountPrice === 0
           ) {
-            let url = `https://epicgames.com/store/p/${game.productSlug}`;
+            let url = `https://epicgames.com/store/p/${game.catalogNs.mappings[0].pageSlug}`;
+
+            if (isUrlValid(url) == false) {
+              url = `https://epicgames.com/store/p/${game.productSlug}`;
+            }
 
             if (isUrlValid(url) == false) {
               url = `https://epicgames.com/store/p/${game.urlSlug}`;

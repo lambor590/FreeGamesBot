@@ -153,7 +153,8 @@ class OffersNotifier {
     let slugfinal;
 
     if (offer.productSlug === null) {
-      slugfinal = offer.urlSlug;
+      slugfinal = offer.url;
+      slugfinal = slugfinal.substring(30);
     } else {
       slugfinal = offer.productSlug;
       if (!slugfinal == undefined && slugfinal.endsWith('/home')) {
