@@ -48,7 +48,9 @@ class EpicGamesProvider extends AbstractProvider {
             && game.promotions.promotionalOffers.length > 0
             && game.price.totalPrice.discountPrice === 0
           ) {
-            let url = `https://epicgames.com/store/p/${game.catalogNs.mappings[0].pageSlug}`;
+            const { pageSlug } = game.catalogNs.mappings[0];
+
+            let url = `https://epicgames.com/store/p/${pageSlug}`;
 
             if (isUrlValid(url) == false) {
               url = `https://epicgames.com/store/p/${game.productSlug}`;
@@ -71,7 +73,10 @@ class EpicGamesProvider extends AbstractProvider {
 
             let image = game.keyImages[1].url;
             for (const { type, url } of game.keyImages) {
-              if (type === 'DieselStoreFrontWide') {
+              if (type === 'OfferImageWide') {
+                image = url;
+                break;
+              } else if (type === 'DieselStoreFrontWide') {
                 image = url;
                 break;
               }
@@ -94,6 +99,7 @@ class EpicGamesProvider extends AbstractProvider {
                 price,
                 game.productSlug,
                 time,
+                pageSlug,
               ),
             );
           }
