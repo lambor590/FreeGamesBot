@@ -156,7 +156,7 @@ class OffersNotifier {
       slugfinal = offer.pageSlug;
     } else {
       slugfinal = offer.productSlug;
-      if (!slugfinal == undefined && slugfinal.endsWith('/home')) {
+      if (slugfinal !== undefined && slugfinal.endsWith('/home')) {
         slugfinal = slugfinal.slice(0, -5);
       }
     }
