@@ -89,12 +89,10 @@ describe('Commands - OffersCommand', () => {
   });
 
   describe('handleSingleProvider()', () => {
-    it('should send a message if the providerName is not valid.', () => {
-      return command.handleSingleProvider(messageMock, 'invalid')
-        .then(() => {
-          expect(messageMock.channel.send).toHaveBeenCalledTimes(1);
-        });
-    });
+    it('should send a message if the providerName is not valid.', () => command.handleSingleProvider(messageMock, 'invalid')
+      .then(() => {
+        expect(messageMock.channel.send).toHaveBeenCalledTimes(1);
+      }));
 
     it('should reject if something else happened.', () => {
       const expectedError = new Error('Oops');

@@ -1,6 +1,6 @@
-const OffersNotifier = require('../../src/classes/OffersNotifier');
 const cron = require('cron');
 const logger = require('@greencoast/logger');
+const OffersNotifier = require('../../src/classes/OffersNotifier');
 const ProviderFactory = require('../../src/classes/providers/ProviderFactory');
 const { clientMock, channelMock } = require('../../__mocks__/discordMocks');
 const { providerMock, offerMock } = require('../../__mocks__/providers');

@@ -194,20 +194,17 @@ class OffersNotifier {
 
     if (offer.provider === 'Steam') {
       embedJuego = new discord.MessageEmbed()
-        .setTitle('¡Oferta por tiempo limitado!')
+        .setTitle(`${offer.game}`)
         .setURL(offer.url)
+        .setDescription(offer.description)
         .setColor('#2f3136')
-        .setImage(
-          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`,
-        )
-        .setThumbnail(
-          'https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png',
-        )
-        .addField(
-          `${offer.game}`,
-          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`,
-        )
-        .addField('Comprar abriendo Steam', `steam://store/${offer.id}`)
+        .setImage(offer.image)
+        .setThumbnail('https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png')
+        .addField('👥 Reseñas', offer.steamReviews)
+        .addField('⌛ Tiempo límite', `<t:${offer.time}:R>`, false)
+        .addField('🖥️ Abrir Steam', `steam://store/${offer.id}`, true)
+        .addField('💰 Precio', `~~${offer.price}~~ ➯ GRATIS`, true)
+        .setFooter(offer.info)
         .setTimestamp();
     }
 
@@ -264,7 +261,7 @@ class OffersNotifier {
       slugfinal = offer.urlSlug;
     } else {
       slugfinal = offer.productSlug;
-      if (!slugfinal == undefined && slugfinal.endsWith('/home')) {
+      if (slugfinal !== undefined && slugfinal.endsWith('/home')) {
         slugfinal = slugfinal.slice(0, -5);
       }
     }
@@ -283,14 +280,14 @@ class OffersNotifier {
         false,
       )
       .addField(
-        ' ⌛ Tiempo límite',
+        '⌛ Tiempo límite',
         `<t:${offer.time}:R>`,
         true,
       )
       .setDescription(offer.description)
       .setTimestamp();
 
-    if (offer.price !== 'Desconocido') {
+    if (offer.price !== 'PrecioDesconocido') {
       embedJuego.addField('💰 Precio', `~~${offer.price}~~ ➯ GRATIS`, true);
     }
 
@@ -302,20 +299,17 @@ class OffersNotifier {
 
     if (offer.provider === 'Steam') {
       embedJuego = new discord.MessageEmbed()
-        .setTitle('¡Oferta por tiempo limitado!')
+        .setTitle(`${offer.game}`)
         .setURL(offer.url)
+        .setDescription(offer.description)
         .setColor('#2f3136')
-        .setImage(
-          `https://cdn.akamai.steamstatic.com/steam/apps/${offer.id}/header.jpg`,
-        )
-        .setThumbnail(
-          'https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png',
-        )
-        .addField(
-          `${offer.game}`,
-          `Puedes comprar el DLC o juego haciendo [click aquí](${offer.url})`,
-        )
-        .addField('Comprar abriendo Steam', `steam://store/${offer.id}`)
+        .setImage(offer.image)
+        .setThumbnail('https://media.discordapp.net/attachments/672907465670787083/820258285566820402/steam.png')
+        .addField('👥 Reseñas', offer.steamReviews)
+        .addField('⌛ Tiempo límite', `<t:${offer.time}:R>`, false)
+        .addField('🖥️ Abrir Steam', `steam://store/${offer.id}`, true)
+        .addField('💰 Precio', `~~${offer.price}~~ ➯ GRATIS`, true)
+        .setFooter(offer.info)
         .setTimestamp();
     }
 

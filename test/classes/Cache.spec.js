@@ -32,7 +32,7 @@ describe('Classes - Cache', () => {
       cache.content = 'new content';
       expect(cache.get()).toBe(cache.content);
     });
-    
+
     it('should not log the operation if debug is disabled.', () => {
       cache.get();
       expect(logger.debug).not.toHaveBeenCalled();

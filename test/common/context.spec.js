@@ -7,20 +7,20 @@ describe('Common - Context', () => {
       process.argv = ['npm', 'start'];
       jest.resetModules();
       context = require('../../src/common/context');
-  
+
       expect(context.DEBUG_ENABLED).toBe(false);
-  
+
       process.argv = oldArgs;
     });
-  
+
     it('should return true if --debug flag was used.', () => {
       const oldArgs = [...process.argv];
       process.argv = ['npm', 'start', '--debug'];
       jest.resetModules();
       context = require('../../src/common/context');
-  
+
       expect(context.DEBUG_ENABLED).toBe(true);
-  
+
       process.argv = oldArgs;
     });
   });

@@ -1,8 +1,8 @@
+const axios = require('axios');
+const logger = require('@greencoast/logger');
 const AbstractProvider = require('../../../src/classes/providers/AbstractProvider');
 const EpicGamesProvider = require('../../../src/classes/providers/EpicGamesProvider');
 const Cache = require('../../../src/classes/Cache');
-const axios = require('axios');
-const logger = require('@greencoast/logger');
 
 jest.mock('axios');
 jest.mock('@greencoast/logger');
@@ -14,9 +14,9 @@ const mockedGame = {
   productSlug: 'slug',
   promotions: {
     promotionalOffers: [
-      '1 promotion'
-    ]
-  }
+      '1 promotion',
+    ],
+  },
 };
 
 const mockedData = {
@@ -24,11 +24,11 @@ const mockedData = {
     Catalog: {
       searchStore: {
         elements: [
-          mockedGame
-        ]
-      }
-    }
-  }
+          mockedGame,
+        ],
+      },
+    },
+  },
 };
 
 describe('Classes - Providers - EpicGamesProvider', () => {
@@ -62,18 +62,16 @@ describe('Classes - Providers - EpicGamesProvider', () => {
       expect(provider.getData()).toBeInstanceOf(Promise);
     });
 
-    it('should resolve a data object.', () => {
-      return provider.getData()
-        .then((data) => {
-          expect(data).toBe(mockedData);
-        });
-    });
+    it('should resolve a data object.', () => provider.getData()
+      .then((data) => {
+        expect(data).toBe(mockedData);
+      }));
 
     it('should reject if axios.get rejects.', () => {
       const expectedError = new Error('Oops');
       axios.get.mockRejectedValueOnce(expectedError);
       expect.assertions(1);
-      
+
       return provider.getData()
         .catch((error) => {
           expect(error).toBe(expectedError);
@@ -90,7 +88,7 @@ describe('Classes - Providers - EpicGamesProvider', () => {
         game: mockedGame.title,
         url: `https://epicgames.com/store/product/${mockedGame.productSlug}/home`,
         id: mockedGame.productSlug,
-        lastFetched: 1000
+        lastFetched: 1000,
       };
     });
 
@@ -98,19 +96,17 @@ describe('Classes - Providers - EpicGamesProvider', () => {
       expect(provider.getOffers()).toBeInstanceOf(Promise);
     });
 
-    it('should resolve an array of GameOffers.', () => {
-      return provider.getOffers()
-        .then((offers) => {
-          expect(offers).toBeInstanceOf(Array);
-          expect(offers).toContainEqual(expectedOffer);
-        });
-    });
+    it('should resolve an array of GameOffers.', () => provider.getOffers()
+      .then((offers) => {
+        expect(offers).toBeInstanceOf(Array);
+        expect(offers).toContainEqual(expectedOffer);
+      }));
 
     it('should resolve an array of correct GameOffers if productSlug ends with /home.', () => {
       axios.get.mockImplementationOnce(() => {
         const newMockedData = {
           ...mockedData,
-          productSlug: 'slug/home'
+          productSlug: 'slug/home',
         };
 
         return Promise.resolve({ data: newMockedData });
@@ -134,7 +130,7 @@ describe('Classes - Providers - EpicGamesProvider', () => {
     it('should log that the fetch did not work if getData rejects.', () => {
       const expectedError = new Error('Oops');
       axios.get.mockRejectedValueOnce(expectedError);
-      
+
       return provider.getOffers()
         .then(() => {
           expect(logger.error).toBeCalledTimes(2);
@@ -143,15 +139,11 @@ describe('Classes - Providers - EpicGamesProvider', () => {
         });
     });
 
-    it('should read from the cache if called repeatedly.', () => {
-      return provider.getOffers()
-        .then(() => {
-          return provider.getOffers()
-            .then((offers) => {
-              expect(axios.get).toBeCalledTimes(1);
-              expect(offers).toContainEqual(expectedOffer);
-            });
-        });
-    });
+    it('should read from the cache if called repeatedly.', () => provider.getOffers()
+      .then(() => provider.getOffers()
+        .then((offers) => {
+          expect(axios.get).toBeCalledTimes(1);
+          expect(offers).toContainEqual(expectedOffer);
+        })));
   });
 });

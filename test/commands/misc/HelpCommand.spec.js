@@ -11,16 +11,16 @@ jest.mock('@greencoast/logger');
 jest.mock('discord.js', () => {
   const Discord = jest.requireActual('discord.js');
 
-  Discord.MessageEmbed.prototype.setTitle = jest.fn(function() {
+  Discord.MessageEmbed.prototype.setTitle = jest.fn(function () {
     return this;
   });
-  Discord.MessageEmbed.prototype.setColor = jest.fn(function() {
+  Discord.MessageEmbed.prototype.setColor = jest.fn(function () {
     return this;
   });
-  Discord.MessageEmbed.prototype.setThumbnail = jest.fn(function() {
+  Discord.MessageEmbed.prototype.setThumbnail = jest.fn(function () {
     return this;
   });
-  Discord.MessageEmbed.prototype.addField = jest.fn(function() {
+  Discord.MessageEmbed.prototype.addField = jest.fn(function () {
     return this;
   });
 

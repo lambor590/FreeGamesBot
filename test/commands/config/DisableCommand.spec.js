@@ -1,5 +1,5 @@
-const DisableCommand = require('../../../src/commands/config/DisableCommand');
 const logger = require('@greencoast/logger');
+const DisableCommand = require('../../../src/commands/config/DisableCommand');
 const { clientMock, messageMock } = require('../../../__mocks__/discordMocks');
 
 jest.mock('@greencoast/logger');

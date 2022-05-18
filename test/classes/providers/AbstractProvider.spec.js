@@ -17,7 +17,7 @@ describe('Classes - Providers - AbstractProvider', () => {
         game: 'game',
         url: 'url',
         id: 'id',
-        lastFetched: 1000
+        lastFetched: 1000,
       };
 
       expect(AbstractProvider.createOffer('provider', 'game', 'url', 'id')).toStrictEqual(expected);

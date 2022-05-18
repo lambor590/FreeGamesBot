@@ -35,7 +35,7 @@ describe('Commands - SetChannelCommand', () => {
 
       expect(messageMock.reply).toHaveBeenCalledTimes(1);
       expect(messageMock.reply.mock.calls[0][0]).toContain('I cannot see the channel');
-      
+
       channelMock.viewable = true;
     });
   });
@@ -56,28 +56,24 @@ describe('Commands - SetChannelCommand', () => {
         });
     });
 
-    it('should call client.dataProvider.set with the correct arguments.', () => {
-      return command.updateChannel(messageMock, channelMock)
-        .then(() => {
-          expect(clientMock.dataProvider.set).toHaveBeenCalledTimes(1);
-          expect(clientMock.dataProvider.set).toHaveBeenCalledWith(messageMock.guild, GUILD_KEYS.channel, channelMock.id);
-        });
-    });
+    it('should call client.dataProvider.set with the correct arguments.', () => command.updateChannel(messageMock, channelMock)
+      .then(() => {
+        expect(clientMock.dataProvider.set).toHaveBeenCalledTimes(1);
+        expect(clientMock.dataProvider.set).toHaveBeenCalledWith(messageMock.guild, GUILD_KEYS.channel, channelMock.id);
+      }));
 
-    it('should log and reply if the channel has been updated.', () => {
-      return command.updateChannel(messageMock, channelMock)
-        .then(() => {
-          expect(logger.info).toHaveBeenCalledTimes(1);
-          expect(logger.info.mock.calls[0][0]).toContain('channel changed');
-          expect(messageMock.channel.send).toHaveBeenCalledTimes(1);
-          expect(messageMock.channel.send.mock.calls[0][0]).toContain('channel has been change');
-        });
-    });
+    it('should log and reply if the channel has been updated.', () => command.updateChannel(messageMock, channelMock)
+      .then(() => {
+        expect(logger.info).toHaveBeenCalledTimes(1);
+        expect(logger.info.mock.calls[0][0]).toContain('channel changed');
+        expect(messageMock.channel.send).toHaveBeenCalledTimes(1);
+        expect(messageMock.channel.send.mock.calls[0][0]).toContain('channel has been change');
+      }));
 
     it('should log and reply if there was an error when setting the channel.', () => {
       const expectedError = new Error('Oops');
       clientMock.dataProvider.set.mockRejectedValueOnce(expectedError);
-      
+
       return command.updateChannel(messageMock, channelMock)
         .then(() => {
           expect(logger.error).toHaveBeenCalledTimes(1);

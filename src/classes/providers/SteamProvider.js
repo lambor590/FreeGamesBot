@@ -25,6 +25,20 @@ class SteamProvider extends AbstractProvider {
       });
   }
 
+  getGameData(url) {
+    return axios
+      .get(
+        `${url}&l=spanish`,
+        {
+          headers: { 'user-agent': UA },
+        },
+      )
+      .then((res) => res.data)
+      .catch((error) => {
+        throw error;
+      });
+  }
+
   getOffers() {
     if (this.cache.shouldFetchFromCache()) {
       return Promise.resolve(this.cache.get());
@@ -41,7 +55,23 @@ class SteamProvider extends AbstractProvider {
           const url = node.attribs.href;
           const id = node.attribs['data-ds-appid'];
 
-          offers.push(AbstractProvider.createOffer(this.name, name, url, id));
+          return this.getGameData(url).then((html) => {
+            const $ = cheerio.load(html);
+            const price = $('div.discount_original_price').text();
+            const description = $("meta[name='Description']").attr('content');
+            const image = $('img.game_header_image_full').attr('src');
+            const steamReviews = $('div.user_reviews_summary_row').attr('data-tooltip-html');
+            
+            let info = $('div.glance_details').text();
+            info = info.replace(/^\s+|\s+$|\s+(?=\s)/g, '');
+           
+            let textTime = $('p.game_purchase_discount_quantity').text();
+            textTime = textTime.split('del ')[1].split(' a')[0];
+            const noFormatDate = new Date(`${textTime} 2022 19:00:00`);
+            const finalDate = noFormatDate.getTime() / 1000.0;
+            
+            offers.push(AbstractProvider.createOffer(this.name, name, url, id, description, image, undefined, price, undefined, finalDate, undefined, steamReviews, info));
+          });
         });
 
         this.cache.set(offers);

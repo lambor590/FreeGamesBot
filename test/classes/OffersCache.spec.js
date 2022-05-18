@@ -48,16 +48,16 @@ describe('Classes - OffersCache', () => {
   describe('mergeOffers()', () => {
     it('should return an array containing the past offers that are still valid.', () => {
       nowSpy.mockReturnValue(1000);
-      
+
       const cachedOffers = [
         {
           id: '123',
-          lastFetched: 2000
+          lastFetched: 2000,
         },
         {
           id: '234',
-          lastFetched: 3000
-        }
+          lastFetched: 3000,
+        },
       ];
 
       const merged = cache.mergeOffers([], cachedOffers);
@@ -68,16 +68,16 @@ describe('Classes - OffersCache', () => {
 
     it('should return an array without invalid offers.', () => {
       nowSpy.mockReturnValue(100000000000);
-      
+
       const cachedOffers = [
         {
           id: '123',
-          lastFetched: 100000000000
+          lastFetched: 100000000000,
         },
         {
           id: '234',
-          lastFetched: 100
-        }
+          lastFetched: 100,
+        },
       ];
 
       const merged = cache.mergeOffers([], cachedOffers);
@@ -90,12 +90,12 @@ describe('Classes - OffersCache', () => {
       const currentOffers = [
         {
           id: '123',
-          lastFetched: 100000000000
+          lastFetched: 100000000000,
         },
         {
           id: '234',
-          lastFetched: 100
-        }
+          lastFetched: 100,
+        },
       ];
 
       const merged = cache.mergeOffers(currentOffers, []);
@@ -108,16 +108,16 @@ describe('Classes - OffersCache', () => {
       const currentOffers = [
         {
           id: '123',
-          lastFetched: 2222222222
+          lastFetched: 2222222222,
         },
         {
           id: '234',
-          lastFetched: 100
-        }
+          lastFetched: 100,
+        },
       ];
       const cachedOffer = {
         id: '123',
-        lastFetched: 11111111111
+        lastFetched: 11111111111,
       };
 
       const merged = cache.mergeOffers(currentOffers, [cachedOffer]);
