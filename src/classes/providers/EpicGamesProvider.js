@@ -84,7 +84,7 @@ class EpicGamesProvider extends AbstractProvider {
 
             let price = game.price.totalPrice.fmtPrice.originalPrice;
             if (price === '0') {
-              price = 'Desconocido';
+              price = 'PrecioDesconocido';
             }
 
             offers.push(
